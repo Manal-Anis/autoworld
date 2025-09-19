@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferrari</title>
+    <style>
+          * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: darkblue;
+      background-size: cover;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    .container{
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      flex-direction: column;
+      color: white;
+      width: 75%;
+      height: 300vh;
+      background-color: #000000;
+    }
+    img{
+      width: 380px;
+      height: 400px;
+    }
+.model-head{
+height: 100px;
+width: 100%;
+background: grey;
+
+display: flex;
+justify-content:center ;
+align-items: center;
+}
+.model-head h1{
+  color: #003399;
+}
+.models{
+      width: 100%;
+      height: 50vh;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 45px;
+      margin-bottom: 100px;
+}
+.model {
+  width: 400px;           
+  height: 270px;           
+  position: relative;
+  overflow: hidden;         
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.model img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+ .model-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+
+.model:hover .model-name,.model {
+  transform: translateY(0);
+opacity: 1;
+  border: 3px solid rgba(70, 68, 68, 0.7);
+}
+
+
+
+    </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="https://brandeps.com/logo-download/F/Ford-logo-vector-01.svg" alt="">
+    <div class="model-head">
+<h1>Ford Cars And Models</h1>
+</div>
+
+    
+<section class="models">
+
+    <div class="model">
+      <a href="./ford-models/bronco.html">
+      <img src="./ford-models/bronco.png" alt="">
+      <div class="model-name">Bronco</div>
+      </a>
+    </div>
+    <div class="model">
+      <a href="./ford-models/ranger.html">
+      <img src="./ford-models/ranger.jpg" alt="">
+      <div class="model-name">Ranger</div>
+      </a>
+    </div>
+    </section>
+
+    <section class="models">
+    <div class="model">
+      <a href="./ford-models/fordmustang.html">
+      <img src="./ford-models/fordmustang.png"alt="">
+      <div class="model-name">Ford Mustang Mach-E</div>
+      </a>
+    </div>
+    
+    <div class="model">
+      <a href="./ford-models/fordexplorer.html">
+      <img src="./ford-models/fordexplorer.png" alt="">
+      <div class="model-name">Ford Explorer</div>
+      </a>
+    </div>
+    </section>
+
+    <section class="models">
+    <div class="model">
+      <a href="./ford-models/f-150lightening.html">
+      <img src="./ford-models/f-150lightening.png" alt="">
+      <div class="model-name">F-150 Lightening</div>
+      </a>
+    </div>
+    <div class="model">
+      <a href="./ford-models/fordmaverick.html">
+      <img src="./ford-models/fordmaverick.png " alt="">
+      <div class="model-name">Ford Maverick</div>
+    </a>
+    </div>
+
+  </section>
+    
+ 
+</div>
+</body>
+</html>
