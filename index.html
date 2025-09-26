@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AutoWorld Luxury</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+
     * {
       margin: 0;
       padding: 0;
@@ -12,390 +14,624 @@
       font-family: 'Montserrat', sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      background-color: black;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
+        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
       background-size: cover;
-      color: white;
+      color: #e6c07b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 32px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      border-radius: 0 0 16px 16px;
+      padding: 20px 40px;
+      background: rgba(0, 0, 0, 0.65);
+      box-shadow: 0 0 15px #e6c07baa;
+      border-radius: 0 0 12px 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     nav h1 {
-      font-size: 28.8px;
+      font-size: 2.4rem;
       font-weight: 800;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
+      color: #e6c07b;
+      cursor: default;
     }
 
     nav ul {
-      display: flex;
       list-style: none;
-      gap: 24px;
+      display: flex;
+      gap: 30px;
     }
 
     nav ul li a {
+      color: #e6c07b;
       text-decoration: none;
-      color: white;
       font-weight: 600;
-      transition: 0.3s;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
     }
 
     nav ul li a:hover {
-      color: gold;
+      color: #ffd700;
     }
 
     .hero {
       text-align: center;
-      padding: 128px 32px;
+      padding: 160px 20px 120px;
+      text-shadow: 0 0 10px #000;
     }
 
     .hero h2 {
-      font-size: 48px;
+      font-size: 4rem;
       font-weight: 800;
-      text-shadow: 0 0 15px rgba(0,0,0,0.7);
-    }
-       .image{
-      width: 100%;
-      height: 100vh;
-    background-image: url('https://png.pngtree.com/background/20250203/original/pngtree-sleek-and-speedy-black-metallic-super-car-against-a-dark-background-picture-image_13343364.jpg');
-background-repeat: no-repeat;
-background-position: center center;
-background-attachment: fixed;
-background-size: cover;
+      margin-bottom: 12px;
     }
 
     .hero p {
-      margin-top: 16px;
-      font-size: 19.2px;
-      color: #ddd;
-    }
-    .head{
-      text-align: center;
-
-       background: rgba(255, 255, 255, 0.1); 
-      backdrop-filter: blur(10px);         
-      border-radius: 12px;                
-      border: 1px solid rgba(255, 255, 255, 0.2); 
-      margin-bottom: 100px;
-    }
-    .head h2{
-      font-size: 42px;
-      font-weight: 800;
-      text-shadow: 0 0 15px rgba(0,0,0,0.7);
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #f0e6b9;
     }
 
-  
-
-    /* .cards {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      gap: 32px;
-      padding: 48px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.1);
+    .bgg {
+      background: rgba(0, 0, 0, 0.65);
       backdrop-filter: blur(10px);
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
-      overflow: hidden;
+      border-radius: 12px;
+      margin: 40px auto 80px;
+      max-width: 1200px;
+      padding: 40px 30px;
+      box-shadow: 0 0 25px #e6c07b88;
+      position: relative; /* needed for arrow placement */
+      overflow: visible;   /* keep arrow visible outside the edge */
     }
 
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+    .head {
+      text-align: center;
+      margin-bottom: 40px;
     }
 
-    .card img {
+    .head h2 {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #ffd700;
+      text-shadow: 0 0 15px #ffd700aa;
+    }
+
+    /* ---------- Carousel styles (keeps your .brand) ---------- */
+
+    /* The viewport that hides overflowing cards and prevents .bgg expansion */
+    .brands {
       width: 100%;
-      height: 180px;
+      margin: 0 auto;
+      overflow: hidden;     /* crucial: prevents the box from expanding */
+      height: 220px;        /* fixed to match .brand height so the container doesn't grow */
+    }
+
+    /* The moving track — we slide this left/right */
+    .brands-track {
+      display: flex;
+      gap: 40px;
+      align-items: stretch;
+      transition: transform 500ms cubic-bezier(.22,.9,.36,1);
+      will-change: transform;
+    }
+
+    /* keep your .brand styling mostly intact */
+    .brand {
+      width: 320px;
+      height: 220px;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 0 15px #e6c07b88;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 2px solid transparent;
+      background: #111;
+      flex: 0 0 auto; /* important: do not shrink/grow */
+    }
+
+    .brand img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.3s ease;
     }
 
-    .card-content {
-      padding: 24px;
+    .brand:hover img {
+      transform: scale(1.05);
     }
 
-    .card-content h3 {
-      font-size: 24px;
-      margin-bottom: 8px;
-      color: gold;
+    .brand:hover {
+      border-color: #ffd700;
+      box-shadow: 0 0 25px #ffd700cc;
+      transform: translateY(-8px);
     }
 
-    .card-content p {
-      font-size: 14.4px;
-      color: #eee;
-      margin-bottom: 16px;
-    } */
-
-    /* .buy-btn {
-      display: inline-block;
-      padding: 9.6px 19.2px;
-      background: transparent;
-      border: 2px solid #ffd700;
-      border-radius: 5px;
-      color: #ffd700;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .buy-btn:hover {
-      background: #ffd700;
-      color: black;
-    } */
-
-    
-
-    .brands{
+    .hover-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
       width: 100%;
-      height: 30vh;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      gap: 45px;
-      margin-bottom: 150px;
-      
-      /* background: rgba(255, 255, 255, 0.1); 
-      backdrop-filter: blur(10px);         
-      border-radius: 12px;                
-      border: 1px solid rgba(255, 255, 255, 0.2); */
+      background: rgba(0, 0, 0, 0.75);
+      color: #ffd700;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-align: center;
+      padding: 12px 0;
+      letter-spacing: 2px;
+      user-select: none;
     }
 
-    .brand {
-  width: 400px;           
-  height: 270px;           
-  position: relative;
-  overflow: hidden;         
-  border-radius: 12px;
-  cursor: pointer;
-}
+    /* Next brand arrow button — CENTERED exactly on the right edge */
+    .next-btn {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translate(50%, -50%); /* center the button on the right edge */
+      background: linear-gradient(180deg,#ffd700,#e6c07b);
+      border: none;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+      font-size: 26px;
+      line-height: 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      z-index: 20;
+    }
 
-.brand img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+    .next-btn:hover { transform: translate(50%, -50%) scale(1.06); }
+    .next-btn:active { transform: translate(50%, -50%) scale(.98); }
 
+    /* keep your fade animation for other uses */
+    .fade {
+      animation: fadeIn .45s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
- .hover-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(0,0,0,0.7);
-  color: white;
-  text-align: center;
-  padding: 10px;
-  font-weight: bold;
-  font-size: 16px;
-  transform: translateY(100%);
-  opacity: 0;
-  transition: all 0.3s ease;
-}
+    /* ---------- rest of your footer + responsive styles (untouched) ---------- */
 
+    /* FULL FOOTER */
+    footer {
+      background: #0a0a0a;
+      color: #e6c07b;
+      padding: 40px 30px 20px;
+      font-size: 14px;
+      box-shadow: inset 0 0 50px #000000aa;
+      margin-top: auto;
+    }
 
-.brand:hover .hover-bar {
-  transform: translateY(0);
-  opacity: 1;
-  border: 2px solid rgba(110, 110, 110, 0.7);
-}
-.brand:hover{
-  border: 2px solid rgba(110, 110, 110, 0.7);
-}
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto 20px;
+      gap: 30px;
+    }
 
+    .footer-container > div {
+      flex: 1 1 220px;
+      min-width: 220px;
+    }
 
+    .footer-container h3 {
+      margin-bottom: 16px;
+      font-size: 20px;
+      font-weight: 700;
+      border-bottom: 2px solid #e6c07b;
+      padding-bottom: 8px;
+      letter-spacing: 1px;
+    }
 
+    .footer-container p,
+    .footer-container ul,
+    .footer-container li {
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
 
+    .footer-links ul {
+      list-style: none;
+      padding-left: 0;
+    }
 
-.bgg{
-       background: rgba(255, 255, 255, 0.1); 
-      backdrop-filter: blur(10px);         
-      border-radius: 12px;                
-      border: 1px solid rgba(255, 255, 255, 0.2); 
-}
+    .footer-links ul li a {
+      color: #e6c07b;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
 
+    .footer-links ul li a:hover {
+      color: #ffd700;
+    }
 
+    .footer-contact p {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
+    .social-icons {
+      margin-top: 12px;
+    }
 
-footer {
+    .social-icons a {
+      font-size: 22px;
+      margin-right: 15px;
+      color: #e6c07b;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #ffd700;
+    }
+
+    .footer-bottom {
       text-align: center;
-      padding: 24px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      border-radius: 16px 16px 0 0;
-      font-size: 14.4px;
-      margin-top: 32px;
+      border-top: 1px solid #333;
+      padding-top: 12px;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    /* Contact form inside footer */
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 320px;
+      margin-top: 20px;
+    }
+
+    .contact-form h3 {
+      color: #ffd700;
+      margin-bottom: 10px;
+    }
+
+    .contact-form label {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 10px 14px;
+      border: 1.5px solid #e6c07b;
+      border-radius: 6px;
+      background: transparent;
+      color: #e6c07b;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+      resize: vertical;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: #ffd700;
+      box-shadow: 0 0 6px #ffd700aa;
+      background: #1a1a1a;
+    }
+
+    .contact-form button {
+      padding: 12px;
+      background: #ffd700;
+      border: none;
+      border-radius: 8px;
+      color: #111;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .contact-form button:hover {
+      background: #e6c07b;
+      color: #000;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .footer-container > div {
+        min-width: 100%;
+      }
+
+      nav ul {
+        gap: 20px;
+      }
+
+      nav {
+        padding: 15px 25px;
+      }
+
+      .hero h2 {
+        font-size: 2.8rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .brand {
+        width: 90vw;
+        height: 180px;
+      }
+
+      .brands { height: 180px; } /* match mobile brand height */
+      .next-btn {
+        right: 12px;
+        width: 44px;
+        height: 44px;
+        font-size: 22px;
+      }
     }
   </style>
 </head>
 <body>
-
-  <div class="image">
 
   <nav>
     <h1 id="topp">AutoWorld</h1>
     <ul>
       <li><a href="#topp">Home</a></li>
       <li><a href="#headd">Catalogue</a></li>
-      <li><a href="#">Warranty</a></li>
-      <li><a href="#">About Us</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
   <section class="hero">
-    <h2 id="headingc">Luxury Cars</h2>
-    <p>Experience the finest collection of premium cars with AutoWorld.</p>
+    <h2>Experience Luxury on Wheels</h2>
+    <p>Discover the finest selection of high-end cars, crafted to perfection and tailored to your style.</p>
   </section>
 
-</div>
+  <div class="bgg" id="headd">
+    <h2 class="head">Our Featured Brands</h2>
 
+    <!-- ---------- Carousel viewport & track (now contains 5 brands) ---------- -->
+    <div class="brands" aria-live="polite">
+      <div class="brands-track" id="brandsTrack">
+        <!-- initial 5 cards -->
+        <div class="brand">
+          <img src="https://hipfonts.com/wp-content/uploads/2022/08/Lamborghini-logo-cover.jpg" alt="Lamborghini" />
+          <div class="hover-bar">LAMBORGHINI</div>
+        </div>
 
+        <div class="brand">
+          <img src="https://cdn.wallpapersafari.com/22/71/8jbM2y.jpg" alt="Aston Martin" />
+          <div class="hover-bar">ASTON MARTIN</div>
+        </div>
 
-<div class="bgg">
-<section class="head" id="headd"><h2>Available Brands</h2></section>
+        <div class="brand">
+          <img src="https://cdn.worldvectorlogo.com/logos/mclaren.svg" alt="McLaren" />
+          <div class="hover-bar">MCLAREN</div>
+        </div>
 
+        <div class="brand">
+          <!-- placeholder Ferrari image — replace with your preferred Ferrari URL if you have one -->
+          <img src="https://www.pixartprinting.co.uk/blog/wp-content/uploads/2024/03/Cover-Pixart_Ferrari.jpg" alt="Ferrari" />
+          <div class="hover-bar">FERRARI</div>
+        </div>
 
-  <section class="brands">
-
-    <div class="brand">
-      <a href="./pages/ferrari.html">
-      <img src="https://i.pinimg.com/736x/b7/a9/97/b7a997afd142b82f2c817f10f1c13b41.jpg" alt="">
-      <div class="hover-bar">Ferrari</div>
-      </a>
-    </div>
-    <div class="brand">
-      <a href="./pages/lambo.html">
-      <img src="https://www.designyourway.net/blog/wp-content/uploads/2019/11/t1-1.jpg" alt="">
-      <div class="hover-bar">Lamborgini</div>
-      </a>
-    </div>
-    <div class="brand">
-      <a href="./pages/audi.html">
-      <img src="https://i.pinimg.com/564x/10/71/3f/10713fa25df3ea76d948dc73bd8c53e8.jpg" alt="">
-      <div class="hover-bar">Audi</div>
-      </a>
-    </div>
-
-  </section>
-
-  <section class="brands">
-
-    <div class="brand">
-      <a href="./pages/ford.html">
-      <img src="https://i.pinimg.com/736x/d2/72/5d/d2725dd1eb308f8c9381ce09617e09d6.jpg" alt="">
-      <div class="hover-bar">Ford</div>
-      </a>
-    </div>
-
-    <div class="brand">
-      <a href="./pages/mcl.html">
-      <img src="https://i.pinimg.com/474x/63/50/ec/6350ecbbbfafda86e5cad21b47b51778.jpg " alt="">
-      <div class="hover-bar">Mc Laren</div>
-    </a>
-    </div>
-
-  </section>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- <section class="cards">
-    <div class="card">
-      <img src="https://wp-s.ru/wallpapers/0/9/313230830956956/black-honda-accord-on-a-black-background.jpg" alt="Honda Accord">
-      <div class="card-content">
-        <h3>Honda Accord</h3>
-        <p>Elegant design, modern features, and smooth driving experience.</p>
-        <button class="buy-btn">Buy Now</button>
+        <div class="brand">
+          <!-- placeholder Audi image — replace with your preferred Audi URL if you have one -->
+          <img src="https://cdn.wallpapersafari.com/49/98/Oz4IMv.jpg" alt="Audi" />
+          <div class="hover-bar">AUDI</div>
+        </div>
       </div>
     </div>
 
-    <div class="card">
-      <img src="https://live.staticflickr.com/7407/16457676315_d320715422_b.jpg" alt="Toyota Corolla">
-      <div class="card-content">
-        <h3>Toyota Corolla</h3>
-        <p>Reliable, affordable, and efficient sedan for everyday comfort.</p>
-        <button class="buy-btn">Buy Now</button>
+    <!-- RIGHT-SIDE ARROW - clicking it slides ALL cards left and appends the next brand -->
+    <button id="nextBrandBtn" class="next-btn" aria-label="Next brand">›</button>
+  </div>
+
+  <!-- FULL FOOTER -->
+  <footer id="contact">
+    <div class="footer-container">
+
+      <div class="footer-about">
+        <h3>About AutoWorld</h3>
+        <p>At AutoWorld, we offer the finest luxury cars with unmatched quality and service. Drive your dream today with elegance and power.</p>
       </div>
+
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#topp">Home</a></li>
+          <li><a href="#headd">Catalogue</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Warranty</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h3>Contact Us</h3>
+        <p>📍 123 Luxury Drive, Beverly Hills, CA</p>
+        <p>📞 +1 (555) 123-4567</p>
+        <p>✉️ contact@autoworld.com</p>
+        <div class="social-icons" aria-label="Social media links">
+          <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer">🔵</a>
+          <a href="#" aria-label="Twitter" target="_blank" rel="noopener noreferrer">🐦</a>
+          <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer">📸</a>
+          <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">🔗</a>
+        </div>
+      </div>
+
+      <div>
+        <h3>Business Hours</h3>
+        <p>Mon - Fri: 9am - 7pm</p>
+        <p>Sat: 10am - 5pm</p>
+        <p>Sun: Closed</p>
+
+        <form class="contact-form" action="#" method="POST" onsubmit="alert('Message sent! Thank you for contacting us.'); return false;">
+          <h3>Contact Form</h3>
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your full name" required />
+          
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="3" placeholder="Write your message here..." required></textarea>
+          
+          <button type="submit">Send</button>
+        </form>
+      </div>
+
     </div>
 
-    <div class="card">
-      <img src="https://www.luxuryandexpensive.com/pic/Bugatti-Chiron-Sport-Noire-new.42408_2.jpg" alt="Bugatti Chiron">
-      <div class="card-content">
-        <h3>Bugatti Chiron</h3>
-        <p>The epitome of speed and luxury, crafted for the elite.</p>
-        <button class="buy-btn">Buy Now</button>
-      </div>
+    <div class="footer-bottom">
+      <p>© 2025 AutoWorld Luxury. All rights reserved.</p>
     </div>
-  </section>
-
-
-
-
-
-  
-  <section class="cards">
-    <div class="card">
-      <img src="https://images5.alphacoders.com/480/thumb-1920-480033.jpg" alt="Porsche 911">
-      <div class="card-content">
-        <h3>Porsche 911</h3>
-        <p>Elegant design, modern features, and smooth driving experience.</p>
-        <button class="buy-btn">Buy Now</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://4kwallpapers.com/images/wallpapers/aston-martin-db12-2560x1440-19851.jpg" alt="Aston Martin DB11">
-      <div class="card-content">
-        <h3>Aston Martin DB11</h3>
-        <p>Reliable, affordable, and efficient sedan for everyday comfort.</p>
-        <button class="buy-btn">Buy Now</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://images8.alphacoders.com/113/1137775.jpg" alt="McLaren 720S">
-      <div class="card-content">
-        <h3>McLaren 720S</h3>
-        <p>The epitome of speed and luxury, crafted for the elite.</p>
-        <button class="buy-btn">Buy Now</button>
-      </div>
-    </div>
-  </section> -->
-
-  <footer>
-    <p>© 2025 AutoWorld | Luxury Cars. All Rights Reserved.</p>
   </footer>
 
+  <script>
+    (function () {
+      const track = document.getElementById('brandsTrack');
+      const nextBtn = document.getElementById('nextBrandBtn');
+
+      // Full cyclic list (order matters). Keep same order as initial DOM for predictability.
+      const brandData = [
+  {
+    name: 'LAMBORGHINI',
+    img: 'https://hipfonts.com/wp-content/uploads/2022/08/Lamborghini-logo-cover.jpg',
+    alt: 'Lamborghini'
+  },
+  {
+    name: 'ASTON MARTIN',
+    img: 'https://cdn.wallpapersafari.com/22/71/8jbM2y.jpg',
+    alt: 'Aston Martin'
+  },
+  {
+    name: 'MCLAREN',
+    img: 'https://cdn.worldvectorlogo.com/logos/mclaren.svg',
+    alt: 'McLaren'
+  },
+  {
+    name: 'FERRARI',
+    img: 'https://www.pixartprinting.co.uk/blog/wp-content/uploads/2024/03/Cover-Pixart_Ferrari.jpg',
+    alt: 'Ferrari'
+  },
+  {
+    name: 'AUDI',
+    img: 'https://cdn.wallpapersafari.com/49/98/Oz4IMv.jpg',
+    alt: 'Audi'
+  }
+];
+
+      // How many initial cards are in the track (we started with 5)
+      const initialCount = track.children.length;
+
+      // nextIndex points to the next brand in brandData to append.
+      // It starts at initialCount % brandData.length so we cycle cleanly.
+      let nextIndex = initialCount % brandData.length;
+      let isAnimating = false;
+
+      function createBrandNode(item) {
+        const div = document.createElement('div');
+        div.className = 'brand';
+        const img = document.createElement('img');
+        img.src = item.img;
+        img.alt = item.alt;
+        const label = document.createElement('div');
+        label.className = 'hover-bar';
+        label.textContent = item.name;
+
+        div.appendChild(img);
+        div.appendChild(label);
+        return div;
+      }
+
+      function getGapPx() {
+        const gapStyle = getComputedStyle(track).gap;
+        const gap = gapStyle ? parseFloat(gapStyle) : 40;
+        return isNaN(gap) ? 40 : gap;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (isAnimating) return;
+        isAnimating = true;
+        nextBtn.disabled = true;
+
+        const firstBrand = track.querySelector('.brand');
+        if (!firstBrand) { isAnimating = false; nextBtn.disabled = false; return; }
+
+        // measure slide distance: first brand width + gap
+        const slideWidth = firstBrand.offsetWidth + getGapPx();
+
+        // append next brand element to the end
+        const brandToAppend = brandData[nextIndex % brandData.length];
+        track.appendChild(createBrandNode(brandToAppend));
+
+        // Animate: shift the track left by slideWidth (px)
+        requestAnimationFrame(() => {
+          track.style.transition = 'transform 500ms cubic-bezier(.22,.9,.36,1)';
+          track.style.transform = `translateX(-${slideWidth}px)`;
+        });
+
+        // when transition ends, remove the first child and reset transform
+        const onTransEnd = (ev) => {
+          if (ev.propertyName !== 'transform') return;
+          track.removeEventListener('transitionend', onTransEnd);
+
+          // remove first (leftmost) card (keeps total number of cards constant)
+          const left = track.firstElementChild;
+          if (left) track.removeChild(left);
+
+          // reset transform without animation so remaining items sit in correct place
+          track.style.transition = 'none';
+          track.style.transform = 'translateX(0)';
+
+          // force reflow so next animation can run cleanly
+          void track.offsetHeight;
+
+          // update pointer & allow next click
+          nextIndex = (nextIndex + 1) % brandData.length;
+          isAnimating = false;
+          nextBtn.disabled = false;
+        };
+
+        track.addEventListener('transitionend', onTransEnd);
+      });
+
+      // keyboard support: right arrow
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') nextBtn.click();
+      });
+    })();
+  </script>
 </body>
 </html>
-
-
-
-
-
