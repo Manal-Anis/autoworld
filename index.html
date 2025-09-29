@@ -399,6 +399,12 @@
         font-size: 22px;
       }
     }
+
+    .BH{
+      font-size: 18px;
+      font-weight: 670;
+      color: yellow;
+    }
   </style>
 </head>
 <body>
@@ -424,32 +430,43 @@
     <div class="brands" aria-live="polite">
       <div class="brands-track" id="brandsTrack">
         <!-- initial 5 cards -->
+
+         <a href="./pages/lambo.html">
         <div class="brand">
           <img src="https://hipfonts.com/wp-content/uploads/2022/08/Lamborghini-logo-cover.jpg" alt="Lamborghini" />
           <div class="hover-bar">LAMBORGHINI</div>
         </div>
+        </a>
 
+        <a href="./pages/am.html">
         <div class="brand">
           <img src="https://cdn.wallpapersafari.com/22/71/8jbM2y.jpg" alt="Aston Martin" />
           <div class="hover-bar">ASTON MARTIN</div>
         </div>
+        </a>
 
+        <a href="./pages/mcl.html">
         <div class="brand">
           <img src="https://cdn.worldvectorlogo.com/logos/mclaren.svg" alt="McLaren" />
           <div class="hover-bar">MCLAREN</div>
         </div>
+        </a>
 
+        <a href="./pages/ferrari.html">
         <div class="brand">
           <!-- placeholder Ferrari image — replace with your preferred Ferrari URL if you have one -->
           <img src="https://www.pixartprinting.co.uk/blog/wp-content/uploads/2024/03/Cover-Pixart_Ferrari.jpg" alt="Ferrari" />
           <div class="hover-bar">FERRARI</div>
         </div>
+</a>
 
+        <a href="./pages/audi.html">
         <div class="brand">
           <!-- placeholder Audi image — replace with your preferred Audi URL if you have one -->
           <img src="https://cdn.wallpapersafari.com/49/98/Oz4IMv.jpg" alt="Audi" />
           <div class="hover-bar">AUDI</div>
         </div>
+        </a>
       </div>
     </div>
 
@@ -466,16 +483,7 @@
         <p>At AutoWorld, we offer the finest luxury cars with unmatched quality and service. Drive your dream today with elegance and power.</p>
       </div>
 
-      <div class="footer-links">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#topp">Home</a></li>
-          <li><a href="#headd">Catalogue</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#">Warranty</a></li>
-          <li><a href="#">About Us</a></li>
-        </ul>
-      </div>
+      
 
       <div class="footer-contact">
         <h3>Contact Us</h3>
@@ -492,9 +500,9 @@
 
       <div>
         <h3>Business Hours</h3>
-        <p>Mon - Fri: 9am - 7pm</p>
-        <p>Sat: 10am - 5pm</p>
-        <p>Sun: Closed</p>
+        <p class="BH">Mon - Fri: 9am - 7pm</p>
+        <p class="BH">Sat:    : 10am - 5pm</p>
+        <p class="BH">Sun      : Closed</p>
 
         <form class="contact-form" action="#" method="POST" onsubmit="alert('Message sent! Thank you for contacting us.'); return false;">
           <h3>Contact Form</h3>
@@ -528,29 +536,35 @@
   {
     name: 'LAMBORGHINI',
     img: 'https://hipfonts.com/wp-content/uploads/2022/08/Lamborghini-logo-cover.jpg',
-    alt: 'Lamborghini'
+    alt: 'Lamborghini',
+    link: './pages/lambo.html'
   },
   {
     name: 'ASTON MARTIN',
     img: 'https://cdn.wallpapersafari.com/22/71/8jbM2y.jpg',
-    alt: 'Aston Martin'
+    alt: 'Aston Martin',
+    link: './pages/am.html'
   },
   {
     name: 'MCLAREN',
     img: 'https://cdn.worldvectorlogo.com/logos/mclaren.svg',
-    alt: 'McLaren'
+    alt: 'McLaren',
+    link: './pages/mcl.html'
   },
   {
     name: 'FERRARI',
     img: 'https://www.pixartprinting.co.uk/blog/wp-content/uploads/2024/03/Cover-Pixart_Ferrari.jpg',
-    alt: 'Ferrari'
+    alt: 'Ferrari',
+    link: './pages/ferrari.html'
   },
   {
     name: 'AUDI',
     img: 'https://cdn.wallpapersafari.com/49/98/Oz4IMv.jpg',
-    alt: 'Audi'
+    alt: 'Audi',
+    link: './pages/audi.html'
   }
 ];
+
 
       // How many initial cards are in the track (we started with 5)
       const initialCount = track.children.length;
@@ -561,19 +575,27 @@
       let isAnimating = false;
 
       function createBrandNode(item) {
-        const div = document.createElement('div');
-        div.className = 'brand';
-        const img = document.createElement('img');
-        img.src = item.img;
-        img.alt = item.alt;
-        const label = document.createElement('div');
-        label.className = 'hover-bar';
-        label.textContent = item.name;
+  const a = document.createElement('a');
+  a.href = item.link;
 
-        div.appendChild(img);
-        div.appendChild(label);
-        return div;
-      }
+  const div = document.createElement('div');
+  div.className = 'brand';
+
+  const img = document.createElement('img');
+  img.src = item.img;
+  img.alt = item.alt;
+
+  const label = document.createElement('div');
+  label.className = 'hover-bar';
+  label.textContent = item.name;
+
+  div.appendChild(img);
+  div.appendChild(label);
+  a.appendChild(div);
+
+  return a;
+}
+
 
       function getGapPx() {
         const gapStyle = getComputedStyle(track).gap;
