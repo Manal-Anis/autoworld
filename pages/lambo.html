@@ -285,39 +285,44 @@ align-items: center;
   revuelto: {
     img: "https://medialamborghini-meride-tv.akamaized.net/meride/lamborghini/video/images/folder1/1252/vlcsnap-2023-03-17-16h18m30s840.jpg",
     title: "Revuelto",
+    price: "PKR 1,300,000,000", 
     desc: "A futuristic hybrid V12 Lamborghini combining performance with electrification.",
-        ratings: { Speed: 5, Acceleration: 4, Brakes: 2, Comfort: 3 }
+    ratings: { Speed: 5, Acceleration: 4, Brakes: 2, Comfort: 3 }
   },
   huracan: {
     img: "https://media.ed.edmunds-media.com/lamborghini/huracan/2019/oem/2019_lamborghini_huracan_convertible_performante-spyder_fq_oem_1_300.jpg",
     title: "Huracan",
+    price: "PKR 85,000,000",
     desc: "The Huracan delivers razor-sharp performance with a naturally aspirated V10, aggressive looks, and exceptional handling both on road and track.",
-        ratings: { Speed: 3, Acceleration: 5, Brakes: 2, Comfort: 3 }
+    ratings: { Speed: 3, Acceleration: 5, Brakes: 2, Comfort: 3 }
   },
-   countach : {
+  countach: {
     img: "https://www.carscoops.com/wp-content/uploads/2022/01/Lamborghini-Countach-LPI-800-4-Dynamic-Shot-main.jpg",
-    title: "Lamborghini-Countach-LPI-800-4",
+    title: "Lamborghini Countach LPI 800-4",
+    price: "PKR 500,000,000",
     desc: "A reborn legend, the Countach LPI 800-4 combines iconic retro styling with modern hybrid technology and Lamborghini’s signature power.",
-        ratings: { Speed: 5, Acceleration: 5, Brakes: 2, Comfort: 3 }
+    ratings: { Speed: 5, Acceleration: 5, Brakes: 2, Comfort: 3 }
   },
-  essenza : {
+  essenza: {
     img: "https://i.ytimg.com/vi/CdjjYqhBEak/maxresdefault.jpg",
     title: "Essenza SCV12",
-    desc: "TBuilt exclusively for the track, the Essenza SCV12 is a limited-edition V12 hypercar with extreme aerodynamics and no road-legal compromises.",
-        ratings: { Speed: 4, Acceleration: 4, Brakes: 5, Comfort: 1 }
+    price: "PKR 600,000,000",
+    desc: "Built exclusively for the track, the Essenza SCV12 is a limited-edition V12 hypercar with extreme aerodynamics and no road-legal compromises.",
+    ratings: { Speed: 4, Acceleration: 4, Brakes: 5, Comfort: 1 }
   },
   aventador: {
     img: "https://res.cloudinary.com/unix-center/image/upload/c_limit,dpr_3.0,f_auto,fl_progressive,g_center,h_240,q_auto:good,w_385/kxxsmpxaopxf5gzec22w.jpg",
     title: "Aventador",
-    desc: "TThe Gallardo is a timeless V10 supercar that defined a generation of Lamborghinis with its bold design, speed, and daily drivability.",
-        ratings: { Speed: 5, Acceleration: 5, Brakes: 3, Comfort: 3 }
-  }
-  ,
+    price: "PKR 185,000,000",
+    desc: "The Aventador stands as Lamborghini’s V12 flagship, known for its aggressive styling, breathtaking acceleration, and explosive performance.",
+    ratings: { Speed: 5, Acceleration: 5, Brakes: 3, Comfort: 3 }
+  },
   gallardo: {
     img: "https://news.dupontregistry.com/wp-content/uploads/2025/02/2007-lamborghini-gallardo-99999.jpg",
     title: "Gallardo",
-    desc: "The Aventador stands as Lamborghini’s V12 flagship, known for its aggressive styling, breathtaking acceleration, and explosive performance.",
-        ratings: { Speed: 5, Acceleration: 5, Brakes: 4, Comfort: 3 }
+    price: "PKR 25,000,000",
+    desc: "The Gallardo is a timeless V10 supercar that defined a generation of Lamborghinis with its bold design, speed, and daily drivability.",
+    ratings: { Speed: 5, Acceleration: 5, Brakes: 4, Comfort: 3 }
   }
 };
 
@@ -325,40 +330,45 @@ function openModal(car) {
   document.getElementById("modal").style.display = "flex";
   document.getElementById("modal-img").src = carDetails[car].img;
   document.getElementById("modal-title").innerText = carDetails[car].title;
-  document.getElementById("modal-desc").innerText = carDetails[car].desc;
+
+  // show price + desc
+  document.getElementById("modal-desc").innerHTML =
+    `<strong>Price: ${carDetails[car].price}</strong><br>` +
+    carDetails[car].desc;
 
   // Build ratings
-      let ratingsHTML = "";
-      for (let key in carDetails[car].ratings) {
-        ratingsHTML += `
-          <div class="rating">
-            <div class="rating-title">${key}</div>
-            <div class="stars">
-              ${'<span class="star">&#9733;</span>'.repeat(5)}
-            </div>
-          </div>
-        `;
-      }
-      document.getElementById("modal-ratings").innerHTML = ratingsHTML;
+  let ratingsHTML = "";
+  for (let key in carDetails[car].ratings) {
+    ratingsHTML += `
+      <div class="rating">
+        <div class="rating-title">${key}</div>
+        <div class="stars">
+          ${'<span class="star">&#9733;</span>'.repeat(5)}
+        </div>
+      </div>
+    `;
+  }
+  document.getElementById("modal-ratings").innerHTML = ratingsHTML;
 
-      // Animate stars
-      const ratingDivs = document.querySelectorAll("#modal-ratings .rating");
-      ratingDivs.forEach((ratingDiv, i) => {
-        let stars = ratingDiv.querySelectorAll(".star");
-        let ratingValue = Object.values(carDetails[car].ratings)[i];
-        stars.forEach((star, index) => {
-          setTimeout(() => {
-            if (index < ratingValue) {
-              star.classList.add("active");
-            }
-          }, index * 300);
-        });
-      });
-    }
+  // Animate stars
+  const ratingDivs = document.querySelectorAll("#modal-ratings .rating");
+  ratingDivs.forEach((ratingDiv, i) => {
+    let stars = ratingDiv.querySelectorAll(".star");
+    let ratingValue = Object.values(carDetails[car].ratings)[i];
+    stars.forEach((star, index) => {
+      setTimeout(() => {
+        if (index < ratingValue) {
+          star.classList.add("active");
+        }
+      }, index * 300);
+    });
+  });
+}
 
 function closeModal() {
   document.getElementById("modal").style.display = "none";
 }
+
 
 </script>
 </body>

@@ -247,82 +247,92 @@
 
   <script>
     const carDetails = {
-      unica: {
-        img: "https://cdn.prod.website-files.com/66da09ee919601fcdef82d9a/677c0acdc8b03e4b5f0ef729_672b41dfeaf34f072710a973_New_Ferrari_V12_ext_02_red_media.webp",
-        title: "Ferrari SP48 Unica",
-        desc: "It was unveiled in 2022 as part of Ferrari’s Special Projects program...",
-        ratings: { Speed: 5, Acceleration: 4, Brakes: 4, Comfort: 3 }
-      },
-      f40: {
-        img: "https://www.amalgamcollection.com/cdn/shop/files/DSCF0652WIDEEDIT_2000x850_crop_center.jpg?v=1726149320",
-        title: "Ferrari F40 (1987)",
-        desc: "A legendary supercar from 1987, lightweight and iconic design.",
-        ratings: { Speed: 4, Acceleration: 3, Brakes: 3, Comfort: 2 }
-      },
-      sf90: {
-        img: "https://etimg.etb2bimg.com/photo/101380711.cms",
-        title: "Ferrari SF90",
-        desc: "Ferrari’s hybrid supercar with extreme performance.",
-        ratings: { Speed: 5, Acceleration: 5, Brakes: 4, Comfort: 4 }
-      },
-      r0: {
-        img: "https://143587181.fs1.hubspotusercontent-eu1.net/hubfs/143587181/The%20Best%20Luxury%20Ferraris%20Of%20All%20Time-jpg.jpeg",
-        title: "Ferrari Purosangue",
-        desc: "Ferrari’s luxury SUV with power and elegance combined.",
-        ratings: { Speed: 4, Acceleration: 4, Brakes: 4, Comfort: 5 }
-      },
-      vintage: {
-        img: "https://maseratinet.com/image/catalog/news/11-18-2024/9-ferrari-laferrari.jpg",
-        title: "Ferrari Vintage",
-        desc: "A true classic showcasing Ferrari’s historic engineering.",
-        ratings: { Speed: 3, Acceleration: 2, Brakes: 2, Comfort: 3 }
-      },
-      f812: {
-        img: "https://i.ytimg.com/vi/2iHtkYGdsDc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAzv8WaxIBsyjqx-G1eZLXArRubKQ",
-        title: "Ferrari 812",
-        desc: "Powerful V12 grand tourer with extreme performance.",
-        ratings: { Speed: 5, Acceleration: 4, Brakes: 4, Comfort: 4 }
-      }
-    };
+  unica: {
+    img: "https://cdn.prod.website-files.com/66da09ee919601fcdef82d9a/677c0acdc8b03e4b5f0ef729_672b41dfeaf34f072710a973_New_Ferrari_V12_ext_02_red_media.webp",
+    title: "Ferrari SP48 Unica",
+    price: "PKR 120,000,000",
+    desc: "It was unveiled in 2022 as part of Ferrari’s Special Projects program...",
+    ratings: { Speed: 5, Acceleration: 4, Brakes: 4, Comfort: 3 }
+  },
+  f40: {
+    img: "https://www.amalgamcollection.com/cdn/shop/files/DSCF0652WIDEEDIT_2000x850_crop_center.jpg?v=1726149320",
+    title: "Ferrari F40 (1987)",
+    price: "PKR 200,000,000",
+    desc: "A legendary supercar from 1987, lightweight and iconic design.",
+    ratings: { Speed: 4, Acceleration: 3, Brakes: 3, Comfort: 2 }
+  },
+  sf90: {
+    img: "https://etimg.etb2bimg.com/photo/101380711.cms",
+    title: "Ferrari SF90",
+    price: "PKR 160,000,000",
+    desc: "Ferrari’s hybrid supercar with extreme performance.",
+    ratings: { Speed: 5, Acceleration: 5, Brakes: 4, Comfort: 4 }
+  },
+  r0: {
+    img: "https://143587181.fs1.hubspotusercontent-eu1.net/hubfs/143587181/The%20Best%20Luxury%20Ferraris%20Of%20All%20Time-jpg.jpeg",
+    title: "Ferrari Purosangue",
+    price: "PKR 95,000,000",
+    desc: "Ferrari’s luxury SUV with power and elegance combined.",
+    ratings: { Speed: 4, Acceleration: 4, Brakes: 4, Comfort: 5 }
+  },
+  vintage: {
+    img: "https://maseratinet.com/image/catalog/news/11-18-2024/9-ferrari-laferrari.jpg",
+    title: "Ferrari Vintage",
+    price: "PKR 70,000,000",
+    desc: "A true classic showcasing Ferrari’s historic engineering.",
+    ratings: { Speed: 3, Acceleration: 2, Brakes: 2, Comfort: 3 }
+  },
+  f812: {
+    img: "https://i.ytimg.com/vi/2iHtkYGdsDc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAzv8WaxIBsyjqx-G1eZLXArRubKQ",
+    title: "Ferrari 812",
+    price: "PKR 130,000,000",
+    desc: "Powerful V12 grand tourer with extreme performance.",
+    ratings: { Speed: 5, Acceleration: 4, Brakes: 4, Comfort: 4 }
+  }
+};
 
-    function openModal(car) {
-      document.getElementById("modal").style.display = "flex";
-      document.getElementById("modal-img").src = carDetails[car].img;
-      document.getElementById("modal-title").innerText = carDetails[car].title;
-      document.getElementById("modal-desc").innerText = carDetails[car].desc;
+function openModal(car) {
+  document.getElementById("modal").style.display = "flex";
+  document.getElementById("modal-img").src = carDetails[car].img;
+  document.getElementById("modal-title").innerText = carDetails[car].title;
 
-      // Build ratings
-      let ratingsHTML = "";
-      for (let key in carDetails[car].ratings) {
-        ratingsHTML += `
-          <div class="rating">
-            <div class="rating-title">${key}</div>
-            <div class="stars">
-              ${'<span class="star">&#9733;</span>'.repeat(5)}
-            </div>
-          </div>
-        `;
-      }
-      document.getElementById("modal-ratings").innerHTML = ratingsHTML;
+  // show price + desc
+  document.getElementById("modal-desc").innerHTML =
+    `<strong>Price: ${carDetails[car].price}</strong><br>` +
+    carDetails[car].desc;
 
-      // Animate stars
-      const ratingDivs = document.querySelectorAll("#modal-ratings .rating");
-      ratingDivs.forEach((ratingDiv, i) => {
-        let stars = ratingDiv.querySelectorAll(".star");
-        let ratingValue = Object.values(carDetails[car].ratings)[i];
-        stars.forEach((star, index) => {
-          setTimeout(() => {
-            if (index < ratingValue) {
-              star.classList.add("active");
-            }
-          }, index * 300);
-        });
-      });
-    }
+  // Build ratings
+  let ratingsHTML = "";
+  for (let key in carDetails[car].ratings) {
+    ratingsHTML += `
+      <div class="rating">
+        <div class="rating-title">${key}</div>
+        <div class="stars">
+          ${'<span class="star">&#9733;</span>'.repeat(5)}
+        </div>
+      </div>
+    `;
+  }
+  document.getElementById("modal-ratings").innerHTML = ratingsHTML;
 
-    function closeModal() {
-      document.getElementById("modal").style.display = "none";
-    }
-  </script>
+  // Animate stars
+  const ratingDivs = document.querySelectorAll("#modal-ratings .rating");
+  ratingDivs.forEach((ratingDiv, i) => {
+    let stars = ratingDiv.querySelectorAll(".star");
+    let ratingValue = Object.values(carDetails[car].ratings)[i];
+    stars.forEach((star, index) => {
+      setTimeout(() => {
+        if (index < ratingValue) {
+          star.classList.add("active");
+        }
+      }, index * 300);
+    });
+  });
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+</script>
 </body>
 </html>

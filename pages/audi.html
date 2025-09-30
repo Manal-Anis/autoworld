@@ -264,81 +264,91 @@
 
   <script>
     const carDetails = {
-      a5: {
+  a5: {
     img: "https://www.thecarexpert.co.uk/wp-content/uploads/2021/07/audi-a5-sportback-wallpaper-2133x1200-cropped.jpeg",
     title: "Audi A5 Sportback (2017–2024)",
+    price: "PKR 25,000,000",
     desc: "A stylish and practical four-door coupé offering sporty design, refined comfort, and solid performance in Audi’s mid-size range.",
-        ratings: { Speed: 5, Acceleration: 4, Brakes: 3, Comfort: 4 }
+    ratings: { Speed: 5, Acceleration: 4, Brakes: 3, Comfort: 4 }
   },
   A8: {
     img: "https://images.hgmsites.net/lrg/2025-audi-a8-l-55-tfsi-quattro-angular-front-exterior-view_100962236_l.webp",
     title: "Audi A8",
+    price: "PKR 45,000,000",
     desc: "Audi’s flagship luxury sedan, combining top-tier technology, refined elegance, and smooth V6/V8 performance for a premium executive experience.",
-        ratings: { Speed: 1, Acceleration: 2, Brakes: 3, Comfort: 1 }
+    ratings: { Speed: 1, Acceleration: 2, Brakes: 3, Comfort: 1 }
   },
-    q4: {
+  q4: {
     img: "https://www.motortrend.com/files/66e379cb08d7da00084fe541/3-2025-audi-q4-e-tron-front-view.jpg",
     title: "Audi Q4 E-Tron",
+    price: "PKR 18,000,000",
     desc: "A fully electric compact SUV that blends Audi’s premium interior with sustainable electric performance and everyday practicality.",
-        ratings: { Speed: 4, Acceleration: 2, Brakes: 3, Comfort: 5 }
+    ratings: { Speed: 4, Acceleration: 2, Brakes: 3, Comfort: 5 }
   },
-  a7 : {
+  a7: {
     img: "https://www.topgear.com/sites/default/files/cars-car/image/2015/02/buyers_guide_-_audi_a7_sb_2014_-_front_quarter.jpg",
     title: "Audi A7 Sportback",
+    price: "PKR 32,000,000",
     desc: "A luxurious five-door coupé with a sleek fastback design, offering a perfect mix of performance, technology, and sophistication.",
-        ratings: { Speed: 3, Acceleration: 4, Brakes: 3, Comfort: 2 }
+    ratings: { Speed: 3, Acceleration: 4, Brakes: 3, Comfort: 2 }
   },
   gt: {
     img: "https://cdn.motor1.com/images/mgl/9m4RBp/s3/2025-audi-e-tron-gt.jpg",
     title: "Audi RS E-Tron GT",
+    price: "PKR 40,000,000",
     desc: "A high-performance electric grand tourer, delivering breathtaking acceleration, quattro grip, and aggressive RS styling.",
-        ratings: { Speed: 1, Acceleration: 5, Brakes: 3, Comfort: 5 }
-  }
-  ,
+    ratings: { Speed: 1, Acceleration: 5, Brakes: 3, Comfort: 5 }
+  },
   r8: {
     img: "https://cdn.motor1.com/images/mgl/JOBB2g/s1/audi-r8-v-10-vegas-yellow.jpg",
     title: "Audi R8 (Supercar – Phased Out in 2024)",
+    price: "PKR 55,000,000",
     desc: "Audi’s iconic V10 supercar, known for its exotic performance, sharp dynamics, and unmistakable presence — a true modern classic.",
-        ratings: { Speed: 5, Acceleration: 5, Brakes: 3, Comfort: 5 }
+    ratings: { Speed: 5, Acceleration: 5, Brakes: 3, Comfort: 5 }
   }
-    };
+};
 
-    function openModal(car) {
-      document.getElementById("modal").style.display = "flex";
-      document.getElementById("modal-img").src = carDetails[car].img;
-      document.getElementById("modal-title").innerText = carDetails[car].title;
-      document.getElementById("modal-desc").innerText = carDetails[car].desc;
+function openModal(car) {
+  document.getElementById("modal").style.display = "flex";
+  document.getElementById("modal-img").src = carDetails[car].img;
+  document.getElementById("modal-title").innerText = carDetails[car].title;
 
-      // Build ratings
-      let ratingsHTML = "";
-      for (let key in carDetails[car].ratings) {
-        ratingsHTML += `
-          <div class="rating">
-            <div class="rating-title">${key}</div>
-            <div class="stars">
-              ${'<span class="star">&#9733;</span>'.repeat(5)}
-            </div>
-          </div>
-        `;
-      }
-      document.getElementById("modal-ratings").innerHTML = ratingsHTML;
+  // Show price + desc
+  document.getElementById("modal-desc").innerHTML =
+    `<strong>Price: ${carDetails[car].price}</strong><br>` +
+    carDetails[car].desc;
 
-      // Animate stars
-      const ratingDivs = document.querySelectorAll("#modal-ratings .rating");
-      ratingDivs.forEach((ratingDiv, i) => {
-        let stars = ratingDiv.querySelectorAll(".star");
-        let ratingValue = Object.values(carDetails[car].ratings)[i];
-        stars.forEach((star, index) => {
-          setTimeout(() => {
-            if (index < ratingValue) star.classList.add("active");
-          }, index * 300);
-        });
-      });
-    }
+  // Build ratings
+  let ratingsHTML = "";
+  for (let key in carDetails[car].ratings) {
+    ratingsHTML += `
+      <div class="rating">
+        <div class="rating-title">${key}</div>
+        <div class="stars">
+          ${'<span class="star">&#9733;</span>'.repeat(5)}
+        </div>
+      </div>
+    `;
+  }
+  document.getElementById("modal-ratings").innerHTML = ratingsHTML;
 
-    function closeModal() {
-      document.getElementById("modal").style.display = "none";
-    }
+  // Animate stars
+  const ratingDivs = document.querySelectorAll("#modal-ratings .rating");
+  ratingDivs.forEach((ratingDiv, i) => {
+    let stars = ratingDiv.querySelectorAll(".star");
+    let ratingValue = Object.values(carDetails[car].ratings)[i];
+    stars.forEach((star, index) => {
+      setTimeout(() => {
+        if (index < ratingValue) star.classList.add("active");
+      }, index * 300);
+    });
+  });
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
   </script>
 </body>
 </html>
